@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import json
 from getpass import getpass
 import tweepy
@@ -7,6 +8,7 @@ import settings
 def main():
   account_id = input('Account id: ')
   password = getpass('Password: ')
+  #if
   with open('./account.db', 'r') as f:
     database = json.load(f)
     if account_id in database.keys():

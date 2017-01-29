@@ -30,7 +30,10 @@ def multi_fav(tokenlist, status):
   for i in range(len(tokenlist)):
     auth.set_access_token(tokenlist[i][0], tokenlist[i][1])
     api = tweepy.API(auth)
-    api.create_favorite(status.id)
+    try:
+      api.create_favorite(status.id)
+    except tweepy.TweepError as e:
+      exit('Cannot favorite')
   return
 
 def multi_retweet(tweetid):
