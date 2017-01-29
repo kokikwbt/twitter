@@ -2,29 +2,10 @@
 import json
 import tweepy
 import settings
+import oauth
 
 auth = tweepy.OAuthHandler(settings.CONSUMER_KEY,
                            settings.CONSUMER_SECRET)
-
-def load_database():
-  with open('./account.db', 'r') as f:
-    database = json.load(f)
-  return database
-
-def get_tokens(database):
-  tokenlist = []
-  for id in database.keys():
-    token = database[id]['token']
-    secret = database[id]['secret']
-    tokenlist.append((token, secret))
-  return tokenlist
-
-def main_token(database, userid):
-  token = database[userid]['token']
-  secret = database[userid]['secret']
-  auth.set_access_token(token, secret)
-  api = tweepy.API(auth)
-  return api
 
 def multi_fav(tokenlist, status):
   for i in range(len(tokenlist)):
@@ -50,10 +31,10 @@ def disp_tweet(api, userid, num=10):
   return timeline
 
 def main():
-  db = load_database()
-  tokenlist = get_tokens(db)
+  db = oauth.load_database()
+  tokenlist = oauth.get_tokens(db)
   main_id = input('Your user id: ')
-  api = main_token(db, main_id)
+  api = oauth.get_api(db, main_id)
   while(1):
     target_id = input('Target user id: ')
     tweets = disp_tweet(api, target_id)
