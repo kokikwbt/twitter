@@ -1,3 +1,5 @@
-python library for Twitter
+Python tools for Twitter
 
-1. multi_fav.py
+settings.py ->
+  CONSUMER_KEY = ''
+  CONSUMER_SECRET = ''
